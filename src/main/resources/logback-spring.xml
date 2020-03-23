@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+
+    <springProperty name="loggingFilePath" source="logging.file.path" />
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${loggingFilePath}/spring.log</file>
+        <encoder>
+            <pattern>[%-5level] [%X{X-REQUEST-ID}] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%logger{36}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
